@@ -37,7 +37,15 @@ layout: default
                 $('.ms-elem-selectable').removeClass('ms-selected');
                 $(this).addClass('ms-selected');
                 $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
+                
+                // Obtener el valor del elemento seleccionado
+                var selectedValue = $(this).text();
+                console.log("Elemento seleccionado: " + selectedValue);
+                
+                // Mostrar el valor seleccionado en la página
+                $('#selected-output').text("Elemento seleccionado: " + selectedValue);
             });
         });
     </script>
+    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
 </body>
