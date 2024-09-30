@@ -498,17 +498,6 @@
     }
   };
 
-  /* callbacks PLUGIN DEFINITION
-   * ======================= */
-  $('#callbacks').multiSelect({
-  afterSelect: function(values){
-    alert("Select value: "+values);
-  },
-  afterDeselect: function(values){
-    alert("Deselect value: "+values);
-  }
-});
-
   /* MULTISELECT PLUGIN DEFINITION
    * ======================= */
 
@@ -551,5 +540,16 @@
       }
     });
 };
+  
+  /* callbacks PLUGIN DEFINITION
+   * ======================= */
+  $('#callbacks').multiSelect({
+  afterSelect: function(values){
+    alert("Select value: "+values);
+  },
+  afterDeselect: function(values){
+    alert("Deselect value: "+values);
+  }
+});
 
 }(window.jQuery);
