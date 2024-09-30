@@ -4,9 +4,9 @@ layout: default
 
 # PopCar
 
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
+| Horas        | head two          | three | three | three | three | three |
+|:-------------|:------------------|:------| three | three | three | three |
+| ok           |  nice  | three |good swedish fish | three | three | three |
+| out of stock | good and plenty   | nice  | three | three | three | three |
+| ok           | good `oreos`      | hmm   | three | three | three | three |
+| ok           | good `zoute` drop | yumm  | three | three | three | three |
