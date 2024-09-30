@@ -2,15 +2,7 @@
 layout: default
 ---
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
-
-[Link to another page](./another-page.html).
-* * *
-# Header 1
-
-POPCARr
-
-### Header 6
+# PopCar
 
 | head1        | head two          | three |
 |:-------------|:------------------|:------|
