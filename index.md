@@ -7,6 +7,7 @@ layout: default
 
 <head>
     <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="ms-container" id="ms-pre-selected-options">
