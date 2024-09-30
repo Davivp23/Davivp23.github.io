@@ -5,7 +5,6 @@ layout: default
 # PopCar
 ¿Quién eres?
 
-<html>
   <head>
     <link href="path/to/multiselect.css" media="screen" rel="stylesheet" type="text/css">
   </head>
@@ -20,4 +19,3 @@ layout: default
     </select>
     <script src="path/to/jquery.multi-select.js" type="text/javascript"></script>
   </body>
-</html>
