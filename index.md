@@ -7,23 +7,36 @@ layout: default
 
 <head>
     <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
-  </head>
-  <body>
+</head>
+<body>
     <div class="ms-container" id="ms-pre-selected-options">
         <div class="ms-selectable">
             <ul class="ms-list" tabindex="-1">
-                <li selected="" class="ms-elem-selectable ms-selected" id="-1300566143-selectable" style="display: none;">
+                <li class="ms-elem-selectable" id="elem1">
                     <span>elem 1</span>
                 </li>
-               </ul>
-            </div>
+                <li class="ms-elem-selectable" id="elem2">
+                    <span>elem 2</span>
+                </li>
+                <li class="ms-elem-selectable" id="elem3">
+                    <span>elem 3</span>
+                </li>
+            </ul>
+        </div>
         <div class="ms-selection">
             <ul class="ms-list" tabindex="-1">
-                <li selected="" class="ms-elem-selection ms-selected" id="-1300566143-selection" style="">
-                    <span>elem 1</span>
-                </li>
-                </ul>
+                <!-- Aquí se mostrará el elemento seleccionado -->
+            </ul>
         </div>
     </div>
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
-  </body>
+    <script>
+        $(document).ready(function() {
+            $('.ms-elem-selectable').on('click', function() {
+                $('.ms-elem-selectable').removeClass('ms-selected');
+                $(this).addClass('ms-selected');
+                $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
+            });
+        });
+    </script>
+</body>
