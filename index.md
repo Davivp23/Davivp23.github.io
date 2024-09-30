@@ -6,7 +6,7 @@ layout: default
 ¿Quién eres?
 
   <head>
-    <link href="path/to/multiselect.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
   </head>
   <body>
     <select multiple="multiple" id="my-select" name="my-select[]">
