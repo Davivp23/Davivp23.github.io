@@ -14,10 +14,14 @@ layout: default
         .ms-container {
             display: flex;
             flex-direction: column;
+            max-height: 400px; /* Ajusta este valor según tus necesidades */
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
         }
         .ms-selectable, .ms-selection {
             flex: 1;
-            overflow-y: auto;
         }
         .ms-list {
             list-style-type: none;
@@ -27,6 +31,9 @@ layout: default
         .ms-elem-selectable {
             padding: 10px;
             cursor: pointer;
+            margin-bottom: 5px; /* Añadir espacio entre los elementos */
+            border: 1px solid #ddd; /* Añadir borde para mejor visualización */
+            border-radius: 4px; /* Bordes redondeados */
         }
         .ms-elem-selectable:hover {
             background-color: #f0f0f0;
@@ -74,10 +81,6 @@ layout: default
             const studentsList = document.getElementById('students-list');
             const querySnapshot = await getDocs(collection(db, "alumnos"));
             const numStudents = querySnapshot.size;
-
-            // Ajustar el tamaño del contenedor en función del número de alumnos
-            const containerHeight = numStudents * 40; // Ajusta el valor 40 según el tamaño de cada casilla
-            document.getElementById('ms-pre-selected-options').style.height = `${containerHeight}px`;
 
             querySnapshot.forEach((doc) => {
                 const student = doc.data();
