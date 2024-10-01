@@ -10,6 +10,31 @@ layout: default
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <style>
+        .ms-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .ms-selectable, .ms-selection {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .ms-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .ms-elem-selectable {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .ms-elem-selectable:hover {
+            background-color: #f0f0f0;
+        }
+        .ms-selected {
+            background-color: #d0d0d0;
+        }
+    </style>
 </head>
 <body>
     <div class="ms-container" id="ms-pre-selected-options">
