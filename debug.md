@@ -42,6 +42,7 @@ title: debug
             }
         }
     });
-
-  [back](./)
+    
+    back
+    
 </script>
