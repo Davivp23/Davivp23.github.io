@@ -1,13 +1,13 @@
----
-layout: default
----
-
-# PopCar
-¿Quién eres?
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopCar</title>
     <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
 <body>
     <div class="ms-container" id="ms-pre-selected-options">
@@ -30,8 +30,24 @@ layout: default
             </ul>
         </div>
     </div>
-    <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
+    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
+
     <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_AUTH_DOMAIN",
+            databaseURL: "TU_DATABASE_URL",
+            projectId: "TU_PROJECT_ID",
+            storageBucket: "TU_STORAGE_BUCKET",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
         $(document).ready(function() {
             $('.ms-elem-selectable').on('click', function() {
                 $('.ms-elem-selectable').removeClass('ms-selected');
@@ -44,8 +60,13 @@ layout: default
                 
                 // Mostrar el valor seleccionado en la página
                 $('#selected-output').text("Elemento seleccionado: " + selectedValue);
+                
+                // Guardar el valor seleccionado en Firebase
+                database.ref('selecciones/').push({
+                    valor: selectedValue
+                });
             });
         });
     </script>
-    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
 </body>
+</html>
