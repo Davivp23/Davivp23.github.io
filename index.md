@@ -8,8 +8,8 @@ layout: default
 <head>
     <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
 <body>
     <div class="ms-container" id="ms-pre-selected-options">
@@ -44,7 +44,7 @@ layout: default
             appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
             measurementId: "G-WK8NCRW5J6",
             databaseURL: "https://popcarautohorario-default-rtdb.europe-west1.firebasedatabase.app/"
-            };
+        };
 
         // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
