@@ -8,8 +8,6 @@ layout: default
 <head>
     <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
 <body>
     <div class="ms-container" id="ms-pre-selected-options">
@@ -33,8 +31,11 @@ layout: default
         </div>
     </div>
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
-    <script>
+    <script type="module">
         // Configuración de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
             authDomain: "popcarautohorario.firebaseapp.com",
@@ -47,8 +48,8 @@ layout: default
         };
 
         // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
         $(document).ready(function() {
             $('.ms-elem-selectable').on('click', function() {
@@ -64,7 +65,7 @@ layout: default
                 $('#selected-output').text("Elemento seleccionado: " + selectedValue);
 
                 // Guardar el valor seleccionado en Firebase
-                database.ref('selectedElement').set({
+                set(ref(database, 'selectedElement'), {
                     value: selectedValue
                 });
             });
