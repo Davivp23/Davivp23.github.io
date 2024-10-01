@@ -1,9 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
+---
+layout: default
+---
+
+# PopCar
+¿Quién eres?
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PopCar</title>
     <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
@@ -30,20 +32,22 @@
             </ul>
         </div>
     </div>
-    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
-
+    <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
     <script>
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "TU_AUTH_DOMAIN",
-            databaseURL: "TU_DATABASE_URL",
-            projectId: "TU_PROJECT_ID",
-            storageBucket: "TU_STORAGE_BUCKET",
-            messagingSenderId: "TU_MESSAGING_SENDER_ID",
-            appId: "TU_APP_ID"
-        };
-
+        $(document).ready(function() {
+            $('.ms-elem-selectable').on('click', function() {
+                $('.ms-elem-selectable').removeClass('ms-selected');
+                $(this).addClass('ms-selected');
+                $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
+                
+                // Obtener el valor del elemento seleccionado
+                var selectedValue = $(this).text();
+                console.log("Elemento seleccionado: " + selectedValue);
+                
+                // Mostrar el valor seleccionado en la página
+                $('#selected-output').text("Elemento seleccionado: " + selectedValue);
+            });
+        });
         // Inicializar Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
@@ -68,5 +72,5 @@
             });
         });
     </script>
+    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
 </body>
-</html>
