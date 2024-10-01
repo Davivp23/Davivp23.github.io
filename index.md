@@ -34,24 +34,21 @@ layout: default
     </div>
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
     <script>
-        $(document).ready(function() {
-            $('.ms-elem-selectable').on('click', function() {
-                $('.ms-elem-selectable').removeClass('ms-selected');
-                $(this).addClass('ms-selected');
-                $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
-                
-                // Obtener el valor del elemento seleccionado
-                var selectedValue = $(this).text();
-                console.log("Elemento seleccionado: " + selectedValue);
-                
-                // Mostrar el valor seleccionado en la página
-                $('#selected-output').text("Elemento seleccionado: " + selectedValue);
-            });
-        });
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
+            authDomain: "popcarautohorario.firebaseapp.com",
+            projectId: "popcarautohorario",
+            storageBucket: "popcarautohorario.appspot.com",
+            messagingSenderId: "1046371810802",
+            appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
+            measurementId: "G-WK8NCRW5J6",
+            databaseURL: "https://popcarautohorario-default-rtdb.europe-west1.firebasedatabase.app/"
+            };
+
         // Inicializar Firebase
-        const app = firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-        
 
         $(document).ready(function() {
             $('.ms-elem-selectable').on('click', function() {
@@ -65,36 +62,13 @@ layout: default
                 
                 // Mostrar el valor seleccionado en la página
                 $('#selected-output').text("Elemento seleccionado: " + selectedValue);
-                
+
                 // Guardar el valor seleccionado en Firebase
-                database.ref('selecciones/').push({
-                    valor: selectedValue
+                database.ref('selectedElement').set({
+                    value: selectedValue
                 });
             });
         });
-    </script>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
-        authDomain: "popcarautohorario.firebaseapp.com",
-        projectId: "popcarautohorario",
-        storageBucket: "popcarautohorario.appspot.com",
-        messagingSenderId: "1046371810802",
-        appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
-        measurementId: "G-WK8NCRW5J6"
-      };
-    
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
     </script>
     <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
 </body>
