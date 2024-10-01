@@ -3,6 +3,7 @@ layout: default
 title: debug
 ---
 
+back
 
 <button id="add-student-btn">Añadir Alumno</button>
 
@@ -42,7 +43,4 @@ title: debug
             }
         }
     });
-    
-    back
-    
 </script>
