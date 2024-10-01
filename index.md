@@ -48,6 +48,12 @@ layout: default
         async function loadStudents() {
             const studentsList = document.getElementById('students-list');
             const querySnapshot = await getDocs(collection(db, "alumnos"));
+            const numStudents = querySnapshot.size;
+
+            // Ajustar el tamaño del contenedor en función del número de alumnos
+            const containerHeight = numStudents * 40; // Ajusta el valor 40 según el tamaño de cada casilla
+            document.getElementById('ms-pre-selected-options').style.height = `${containerHeight}px`;
+
             querySnapshot.forEach((doc) => {
                 const student = doc.data();
                 const li = document.createElement('li');
