@@ -51,6 +51,7 @@ layout: default
         // Inicializar Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+        
 
         $(document).ready(function() {
             $('.ms-elem-selectable').on('click', function() {
@@ -71,6 +72,29 @@ layout: default
                 });
             });
         });
+    </script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
+        authDomain: "popcarautohorario.firebaseapp.com",
+        projectId: "popcarautohorario",
+        storageBucket: "popcarautohorario.appspot.com",
+        messagingSenderId: "1046371810802",
+        appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
+        measurementId: "G-WK8NCRW5J6"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
     </script>
     <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
 </body>
