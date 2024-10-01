@@ -10,38 +10,6 @@ layout: default
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <style>
-        .ms-container {
-            display: flex;
-            flex-direction: column;
-            max-height: 400px; /* Ajusta este valor según tus necesidades */
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-        .ms-selectable, .ms-selection {
-            flex: 1;
-        }
-        .ms-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .ms-elem-selectable {
-            padding: 10px;
-            cursor: pointer;
-            margin-bottom: 5px; /* Añadir espacio entre los elementos */
-            border: 1px solid #ddd; /* Añadir borde para mejor visualización */
-            border-radius: 4px; /* Bordes redondeados */
-        }
-        .ms-elem-selectable:hover {
-            background-color: #f0f0f0;
-        }
-        .ms-selected {
-            background-color: #d0d0d0;
-        }
-    </style>
 </head>
 <body>
     <div class="ms-container" id="ms-pre-selected-options">
@@ -80,8 +48,6 @@ layout: default
         async function loadStudents() {
             const studentsList = document.getElementById('students-list');
             const querySnapshot = await getDocs(collection(db, "alumnos"));
-            const numStudents = querySnapshot.size;
-
             querySnapshot.forEach((doc) => {
                 const student = doc.data();
                 const li = document.createElement('li');
