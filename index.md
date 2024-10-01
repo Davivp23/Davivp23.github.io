@@ -14,16 +14,8 @@ layout: default
 <body>
     <div class="ms-container" id="ms-pre-selected-options">
         <div class="ms-selectable">
-            <ul class="ms-list" tabindex="-1">
-                <li class="ms-elem-selectable" id="elem1">
-                    <span>elem 1</span>
-                </li>
-                <li class="ms-elem-selectable" id="elem2">
-                    <span>elem 2</span>
-                </li>
-                <li class="ms-elem-selectable" id="elem3">
-                    <span>elem 3</span>
-                </li>
+            <ul class="ms-list" tabindex="-1" id="students-list">
+                <!-- Aquí se cargarán los nombres de los alumnos -->
             </ul>
         </div>
         <div class="ms-selection">
@@ -36,7 +28,7 @@ layout: default
     <script type="module">
         // Configuración de Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
@@ -53,7 +45,19 @@ layout: default
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        $(document).ready(function() {
+        async function loadStudents() {
+            const studentsList = document.getElementById('students-list');
+            const querySnapshot = await getDocs(collection(db, "alumnos"));
+            querySnapshot.forEach((doc) => {
+                const student = doc.data();
+                const li = document.createElement('li');
+                li.className = 'ms-elem-selectable';
+                li.id = doc.id;
+                li.innerHTML = `<span>${student.nombre}</span>`;
+                studentsList.appendChild(li);
+            });
+
+            // Añadir evento de clic a los elementos de la lista
             $('.ms-elem-selectable').on('click', function() {
                 $('.ms-elem-selectable').removeClass('ms-selected');
                 $(this).addClass('ms-selected');
@@ -65,12 +69,11 @@ layout: default
                 
                 // Mostrar el valor seleccionado en la página
                 $('#selected-output').text("Elemento seleccionado: " + selectedValue);
-
-                // Guardar el valor seleccionado en Firestore
-                setDoc(doc(db, "selectedElement", "current"), {
-                    value: selectedValue
-                });
             });
+        }
+
+        $(document).ready(function() {
+            loadStudents();
         });
     </script>
     <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
