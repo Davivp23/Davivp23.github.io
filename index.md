@@ -12,26 +12,23 @@ layout: default
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <table id="students-table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Seleccionar 1</th>
-                <th>Seleccionar 2</th>
-                <th>Seleccionar 3</th>
-                <th>Seleccionar 4</th>
-                <th>Seleccionar 5</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se cargarán los nombres de los alumnos -->
-        </tbody>
-    </table>
+    <div class="ms-container" id="ms-pre-selected-options">
+        <div class="ms-selectable">
+            <ul class="ms-list" tabindex="-1" id="students-list">
+                <!-- Aquí se cargarán los nombres de los alumnos -->
+            </ul>
+        </div>
+        <div class="ms-selection">
+            <ul class="ms-list" tabindex="-1">
+                <!-- Aquí se mostrará el elemento seleccionado -->
+            </ul>
+        </div>
+    </div>
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
     <script type="module">
         // Configuración de Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
@@ -49,31 +46,29 @@ layout: default
         const db = getFirestore(app);
 
         async function loadStudents() {
-            const studentsTableBody = document.querySelector('#students-table tbody');
+            const studentsList = document.getElementById('students-list');
             const querySnapshot = await getDocs(collection(db, "alumnos"));
             querySnapshot.forEach((doc) => {
                 const student = doc.data();
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${student.nombre}</td>
-                    ${Array(5).fill().map((_, i) => `<td><input type="checkbox" data-id="${doc.id}" data-index="${i}" ${student.disponibilidad && student.disponibilidad[i] ? 'checked' : ''}></td>`).join('')}
-                `;
-                studentsTableBody.appendChild(tr);
+                const li = document.createElement('li');
+                li.className = 'ms-elem-selectable';
+                li.id = doc.id;
+                li.innerHTML = `<span>${student.nombre}</span>`;
+                studentsList.appendChild(li);
             });
 
-            // Añadir evento de clic a los checkboxes
-            document.querySelectorAll('#students-table input[type="checkbox"]').forEach((checkbox) => {
-                checkbox.addEventListener('click', async function() {
-                    const docId = this.getAttribute('data-id');
-                    const index = this.getAttribute('data-index');
-                    const newValue = this.checked;
-                    const docRef = doc(db, "alumnos", docId);
-                    const docSnap = await getDoc(docRef);
-                    const disponibilidad = docSnap.data().disponibilidad || Array(5).fill(false);
-                    disponibilidad[index] = newValue;
-                    await updateDoc(docRef, { disponibilidad });
-                    console.log(`Elemento ${docId} actualizado en la posición ${index} a ${newValue}`);
-                });
+            // Añadir evento de clic a los elementos de la lista
+            $('.ms-elem-selectable').on('click', function() {
+                $('.ms-elem-selectable').removeClass('ms-selected');
+                $(this).addClass('ms-selected');
+                $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
+                
+                // Obtener el valor del elemento seleccionado
+                var selectedValue = $(this).text();
+                console.log("Elemento seleccionado: " + selectedValue);
+                
+                // Mostrar el valor seleccionado en la página
+                $('#selected-output').text("Elemento seleccionado: " + selectedValue);
             });
         }
 
@@ -81,4 +76,5 @@ layout: default
             loadStudents();
         });
     </script>
+    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
 </body>
