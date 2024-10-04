@@ -44,3 +44,43 @@ back
         }
     });
 </script>
+
+# Horario
+
+<table>
+  <tr>
+    <th>Hora</th>
+    <th>Lunes</th>
+    <th>Martes</th>
+    <th>Miércoles</th>
+    <th>Jueves</th>
+    <th>Viernes</th>
+  </tr>
+  <tr>
+    <td>08:00 - 09:00</td>
+    <td><input type="checkbox" id="mon1"></td>
+    <td><input type="checkbox" id="tue1"></td>
+    <td><input type="checkbox" id="wed1"></td>
+    <td><input type="checkbox" id="thu1"></td>
+    <td><input type="checkbox" id="fri1"></td>
+  </tr>
+  <!-- Añade más filas según sea necesario -->
+</table>
+
+<button onclick="sendData()">Enviar</button>
+
+<script>
+  function sendData() {
+    const schedule = [
+      document.getElementById('mon1').checked,
+      document.getElementById('tue1').checked,
+      document.getElementById('wed1').checked,
+      document.getElementById('thu1').checked,
+      document.getElementById('fri1').checked,
+      // Añade más elementos según sea necesario
+    ];
+
+    // Aquí puedes enviar el arreglo a tu base de datos
+    console.log(schedule); // Por ahora, solo lo mostramos en la consola
+  }
+</script>
