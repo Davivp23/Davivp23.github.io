@@ -217,16 +217,17 @@ back
       days.forEach(day => {
         schedule.push(document.getElementById(`${day}${i}`).checked);
       });
+      
+    // Aquí puedes enviar el arreglo a tu base de datos
+      try {
+          await setDoc(doc(db, "profesor", José), horario);
+          alert("Horario cambiado correctamente");
+      } catch (error) {
+          console.error("Cambiando el horario ", error);
+          alert("Hubo un error al cambiar el horario");
+      }
     }
 
-    // Aquí puedes enviar el arreglo a tu base de datos
-    try {
-        await setDoc(doc(db, "alumnos", studentName), studentData);
-        alert("Alumno añadido correctamente");
-    } catch (error) {
-        console.error("Cambiando el horario ", error);
-        alert("Hubo un error al cambiar el horario");
-    }
 
     document.getElementById('add-student-btn').addEventListener('click', async () => {
         const studentName = prompt("Introduce el nombre del alumno:");
