@@ -86,6 +86,7 @@ back
     });
 
     // Generar la tabla
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
     const tbody = document.getElementById('schedule');
 
     for (let hour = 0; hour < 24; hour++) {
