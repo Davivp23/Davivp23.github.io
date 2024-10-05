@@ -59,7 +59,7 @@ back
 
         // Aquí puedes enviar el arreglo a tu base de datos
         try {
-            await setDoc(doc(db, "profesor", profesores), { horario: schedule });
+            await setDoc(doc(db, "profesores", "jose"), { horario: schedule });
             alert("Horario cambiado correctamente");
         } catch (error) {
             console.error("Error cambiando el horario: ", error);
