@@ -64,6 +64,8 @@ back
     }
 </script>
 
+<button onclick="sendData()">Enviar</button>
+
     // Relacionado con la base de datos
 
 <script type="module">
@@ -125,5 +127,3 @@ back
         }
     });
 </script>
-
-<button onclick="sendData()">Enviar</button>
