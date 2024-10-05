@@ -26,24 +26,29 @@ back
     const tbody = document.getElementById('schedule');
 
     for (let hour = 0; hour < 24; hour++) {
-        const row = document.createElement('tr');
-        const timeCell = document.createElement('td');
-        timeCell.textContent = `${hour.toString().padStart(2, '0')}:00 - ${(hour + 1).toString().padStart(2, '0')}:00`;
-        row.appendChild(timeCell);
+        for (let half = 0; half < 2; half++) {
+            const row = document.createElement('tr');
+            const timeCell = document.createElement('td');
+            const startHour = hour.toString().padStart(2, '0');
+            const startMinute = (half * 30).toString().padStart(2, '0');
+            const endHour = (half === 0) ? startHour : (hour + 1).toString().padStart(2, '0');
+            const endMinute = (half === 0) ? '30' : '00';
+            timeCell.textContent = `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
+            row.appendChild(timeCell);
 
-        days.forEach((day, index) => {
-            const cell = document.createElement('td');
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.id = `${day}${hour}`;
-            cell.appendChild(checkbox);
-            row.appendChild(cell);
-        });
+            days.forEach((day) => {
+                const cell = document.createElement('td');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `${day}${hour}${half}`;
+                cell.appendChild(checkbox);
+                row.appendChild(cell);
+            });
 
-        tbody.appendChild(row);
+            tbody.appendChild(row);
+        }
     }
 </script>
-
 <button onclick="sendData()">Enviar</button>
 
 <script type="module">
@@ -64,27 +69,28 @@ back
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     
-    function sendData() {
-      const schedule = [];
-      const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
-  
-      for (let i = 1; i <= 24; i++) {
-        days.forEach(day => {
-          schedule.push(document.getElementById(`${day}${i}`).checked);
-        });
-        
-      // Aquí puedes enviar el arreglo a tu base de datos
-        try {
-            await setDoc(doc(db, "profesor", profesores), horario);
-            alert("Horario cambiado correctamente");
-            }
-        catch (error) {
-            console.error("Cambiando el horario ", error);
-            alert("Hubo un error al cambiar el horario");
-            }
-      }
+    async function sendData() {
+    const schedule = [];
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+
+    for (let hour = 0; hour < 24; hour++) {
+        for (let half = 0; half < 2; half++) {
+            days.forEach(day => {
+                const id = `${day}${hour}${half}`;
+                schedule.push(document.getElementById(id).checked);
+            });
+        }
     }
 
+    // Aquí puedes enviar el arreglo a tu base de datos
+    try {
+        await setDoc(doc(db, "profesor", profesores), { horario: schedule });
+        alert("Horario cambiado correctamente");
+    } catch (error) {
+        console.error("Error cambiando el horario: ", error);
+        alert("Hubo un error al cambiar el horario");
+    }
+}
 
     document.getElementById('add-student-btn').addEventListener('click', async () => {
         const studentName = prompt("Introduce el nombre del alumno:");
