@@ -22,6 +22,8 @@ back
     <tbody id="schedule"></tbody>
 </table>
 
+<button onclick="sendData()">Enviar</button>
+
 <script>
     const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
     const tbody = document.getElementById('schedule');
