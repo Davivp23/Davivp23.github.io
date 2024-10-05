@@ -44,7 +44,7 @@ back
     const db = getFirestore(app);
 
     // Definir la variable profesores
-    const profesores = "nombre_del_profesor"; // Reemplaza esto con el valor adecuado
+    const profesores = "jose"; // Reemplaza esto con el valor adecuado
 
     // Función para cargar los datos y actualizar las casillas
     async function loadSchedule() {
