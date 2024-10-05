@@ -64,7 +64,7 @@ back
     }
 </script>
 
-<button onclick="sendData()">Enviar</button>
+    // Relacionado con la base de datos
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -125,3 +125,5 @@ back
         }
     });
 </script>
+
+<button onclick="sendData()">Enviar</button>
