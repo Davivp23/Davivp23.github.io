@@ -1,80 +1,156 @@
 ---
 layout: default
+title: debug
 ---
 
-# PopCar
-¿Quién eres?
+back
 
-<head>
-    <link href="lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-</head>
-<body>
-    <div class="ms-container" id="ms-pre-selected-options">
-        <div class="ms-selectable">
-            <ul class="ms-list" tabindex="-1" id="students-list">
-                <!-- Aquí se cargarán los nombres de los alumnos -->
-            </ul>
-        </div>
-        <div class="ms-selection">
-            <ul class="ms-list" tabindex="-1">
-                <!-- Aquí se mostrará el elemento seleccionado -->
-            </ul>
-        </div>
-    </div>
-    <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
-    <script type="module">
-        // Configuración de Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+<button id="add-student-btn">Añadir Alumno</button>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
-            authDomain: "popcarautohorario.firebaseapp.com",
-            projectId: "popcarautohorario",
-            storageBucket: "popcarautohorario.appspot.com",
-            messagingSenderId: "1046371810802",
-            appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
-            measurementId: "G-WK8NCRW5J6",
-            databaseURL: "https://popcarautohorario-default-rtdb.europe-west1.firebasedatabase.app/"
-        };
+# Horario
 
-        // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+<table>
+    <tr>
+        <th>Hora</th>
+        <th>Lunes</th>
+        <th>Martes</th>
+        <th>Miércoles</th>
+        <th>Jueves</th>
+        <th>Viernes</th>
+        <th>Todos</th>
+    </tr>
+    <tbody id="schedule"></tbody>
+</table>
 
-        async function loadStudents() {
-            const studentsList = document.getElementById('students-list');
-            const querySnapshot = await getDocs(collection(db, "alumnos"));
-            querySnapshot.forEach((doc) => {
-                const student = doc.data();
-                const li = document.createElement('li');
-                li.className = 'ms-elem-selectable';
-                li.id = doc.id;
-                li.innerHTML = `<span>${student.nombre}</span>`;
-                studentsList.appendChild(li);
-            });
+<button onclick="sendData()">Enviar</button>
 
-            // Añadir evento de clic a los elementos de la lista
-            $('.ms-elem-selectable').on('click', function() {
-                $('.ms-elem-selectable').removeClass('ms-selected');
-                $(this).addClass('ms-selected');
-                $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
-                
-                // Obtener el valor del elemento seleccionado
-                var selectedValue = $(this).text();
-                console.log("Elemento seleccionado: " + selectedValue);
-                
-                // Mostrar el valor seleccionado en la página
-                $('#selected-output').text("Elemento seleccionado: " + selectedValue);
-            });
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
+        authDomain: "popcarautohorario.firebaseapp.com",
+        projectId: "popcarautohorario",
+        storageBucket: "popcarautohorario.appspot.com",
+        messagingSenderId: "1046371810802",
+        appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
+        measurementId: "G-WK8NCRW5J6",
+        databaseURL: "https://popcarautohorario-default-rtdb.europe-west1.firebasedatabase.app/"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Definir la variable profesores
+    const profesores = "nombre_del_profesor"; // Reemplaza esto con el valor adecuado
+
+    // Función para cargar los datos y actualizar las casillas
+    async function loadSchedule() {
+        const docRef = doc(db, "profesor", profesores);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const schedule = docSnap.data().horario;
+            const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+
+            for (let hour = 0; hour < 24; hour++) {
+                for (let half = 0; half < 2; half++) {
+                    days.forEach((day, index) => {
+                        const id = `${day}${hour}${half}`;
+                        document.getElementById(id).checked = schedule[hour * 2 + half * 5 + index];
+                    });
+                }
+            }
+        } else {
+            console.log("No such document!");
+        }
+    }
+
+    // Definir la función sendData en el ámbito global
+    window.sendData = async function() {
+        const schedule = [];
+        const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+
+        for (let hour = 0; hour < 24; hour++) {
+            for (let half = 0; half < 2; half++) {
+                days.forEach(day => {
+                    const id = `${day}${hour}${half}`;
+                    schedule.push(document.getElementById(id).checked);
+                });
+            }
         }
 
-        $(document).ready(function() {
-            loadStudents();
-        });
-    </script>
-    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
-</body>
+        // Aquí puedes enviar el arreglo a tu base de datos
+        try {
+            await setDoc(doc(db, "profesor", profesores), { horario: schedule });
+            alert("Horario cambiado correctamente");
+        } catch (error) {
+            console.error("Error cambiando el horario: ", error);
+            alert("Hubo un error al cambiar el horario");
+        }
+    };
+
+    document.getElementById('add-student-btn').addEventListener('click', async () => {
+        const studentName = prompt("Introduce el nombre del alumno:");
+        if (studentName) {
+            const studentData = {
+                nombre: studentName,
+                disponibilidad: Array(48).fill(false) // Array de 48 bools inicializados a false
+            };
+
+            try {
+                await setDoc(doc(db, "alumnos", studentName), studentData);
+                alert("Alumno añadido correctamente");
+            } catch (error) {
+                console.error("Error añadiendo el alumno: ", error);
+                alert("Hubo un error al añadir el alumno");
+            }
+        }
+    });
+
+    // Generar la tabla
+    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+    const tbody = document.getElementById('schedule');
+
+    for (let hour = 0; hour < 24; hour++) {
+        for (let half = 0; half < 2; half++) {
+            const row = document.createElement('tr');
+            const timeCell = document.createElement('td');
+            const startHour = hour.toString().padStart(2, '0');
+            const startMinute = (half * 30).toString().padStart(2, '0');
+            const endHour = (half === 0) ? startHour : (hour + 1).toString().padStart(2, '0');
+            const endMinute = (half === 0) ? '30' : '00';
+            timeCell.textContent = `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
+            row.appendChild(timeCell);
+
+            days.forEach((day) => {
+                const cell = document.createElement('td');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `${day}${hour}${half}`;
+                cell.appendChild(checkbox);
+                row.appendChild(cell);
+            });
+
+            // Añadir checkbox para seleccionar todos los días
+            const allCell = document.createElement('td');
+            const allCheckbox = document.createElement('input');
+            allCheckbox.type = 'checkbox';
+            allCheckbox.id = `all${hour}${half}`;
+            allCheckbox.addEventListener('change', function() {
+                days.forEach(day => {
+                    document.getElementById(`${day}${hour}${half}`).checked = this.checked;
+                });
+            });
+            allCell.appendChild(allCheckbox);
+            row.appendChild(allCell);
+
+            tbody.appendChild(row);
+        }
+    }
+
+    // Cargar el horario al cargar la página
+    window.addEventListener('load', loadSchedule);
+</script>
