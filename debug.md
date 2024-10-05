@@ -17,6 +17,7 @@ back
         <th>Miércoles</th>
         <th>Jueves</th>
         <th>Viernes</th>
+        <th>Todos</th>
     </tr>
     <tbody id="schedule"></tbody>
 </table>
@@ -45,10 +46,24 @@ back
                 row.appendChild(cell);
             });
 
+            // Añadir checkbox para seleccionar todos los días
+            const allCell = document.createElement('td');
+            const allCheckbox = document.createElement('input');
+            allCheckbox.type = 'checkbox';
+            allCheckbox.id = `all${hour}${half}`;
+            allCheckbox.addEventListener('change', function() {
+                days.forEach(day => {
+                    document.getElementById(`${day}${hour}${half}`).checked = this.checked;
+                });
+            });
+            allCell.appendChild(allCheckbox);
+            row.appendChild(allCell);
+
             tbody.appendChild(row);
         }
     }
 </script>
+
 <button onclick="sendData()">Enviar</button>
 
 <script type="module">
