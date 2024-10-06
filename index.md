@@ -73,27 +73,31 @@ layout: default
     }
     
     async function loadSchedule() {
-        const docRef = doc(db, "profesor", "jose");
+        const docRef = doc(db, "profesores", "jose");
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
             const schedule = docSnap.data().disponibilidad;
-            const scheduleTable = document.getElementById('schedule-table');
-            const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-            let timeSlot = 0;
-            
-            for (let i = 0; i < 48; i++) { // 48 slots per day (30 min intervals)
-                const row = document.createElement('tr');
-                for (let j = 0; j < 5; j++) { // 5 days a week
-                    const cell = document.createElement('td');
-                    if (schedule[timeSlot]) {
-                        cell.className = 'available';
+            if (Array.isArray(schedule) && schedule.length === 239) {
+                const scheduleTable = document.getElementById('schedule-table');
+                const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+                let timeSlot = 0;
+                
+                for (let i = 0; i < 48; i++) { // 48 slots per day (30 min intervals)
+                    const row = document.createElement('tr');
+                    for (let j = 0; j < 5; j++) { // 5 days a week
+                        const cell = document.createElement('td');
+                        if (schedule[timeSlot]) {
+                            cell.className = 'available';
+                        }
+                        cell.innerHTML = `${days[j]} ${Math.floor(i / 2)}:${i % 2 === 0 ? '00' : '30'}`;
+                        row.appendChild(cell);
+                        timeSlot++;
                     }
-                    cell.innerHTML = `${days[j]} ${Math.floor(i / 2)}:${i % 2 === 0 ? '00' : '30'}`;
-                    row.appendChild(cell);
-                    timeSlot++;
+                    scheduleTable.appendChild(row);
                 }
-                scheduleTable.appendChild(row);
+            } else {
+                console.error("El arreglo de disponibilidad no es válido.");
             }
         } else {
             console.log("No such document!");
