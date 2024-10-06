@@ -84,17 +84,18 @@ layout: default
                 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
                 let timeSlot = 0;
                 
-                for (let i = 0; i < schedule.length; i++) {
-                    if (schedule[i]) {
-                        const row = document.createElement('tr');
-                        const dayIndex = i % 5;
-                        const timeIndex = Math.floor(i / 5);
+                for (let i = 0; i < 48; i++) { // 48 slots per day (30 min intervals)
+                    const row = document.createElement('tr');
+                    for (let j = 0; j < 5; j++) { // 5 days a week
                         const cell = document.createElement('td');
-                        cell.className = 'available';
-                        cell.innerHTML = `${days[dayIndex]} ${Math.floor(timeIndex / 2)}:${timeIndex % 2 === 0 ? '00' : '30'}`;
+                        if (schedule[timeSlot]) {
+                            cell.className = 'available';
+                            cell.innerHTML = `${days[j]} ${Math.floor(i / 2)}:${i % 2 === 0 ? '00' : '30'}`;
+                        }
                         row.appendChild(cell);
-                        scheduleTable.appendChild(row);
+                        timeSlot++;
                     }
+                    scheduleTable.appendChild(row);
                 }
             } else {
                 console.error("El arreglo de disponibilidad no es válido.");
