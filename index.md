@@ -78,7 +78,7 @@ layout: default
         
         if (docSnap.exists()) {
             const schedule = docSnap.data().horario;
-            if (Array.isArray(schedule) && schedule.length === 239) {
+            if (Array.isArray(schedule) && schedule.length === 240) {
                 const scheduleTable = document.getElementById('schedule-table');
                 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
                 let timeSlot = 0;
