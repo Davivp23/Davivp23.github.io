@@ -73,7 +73,7 @@ layout: default
     }
     
     async function loadSchedule() {
-        const docRef = doc(db, "profesores", "jose");
+        const docRef = doc(db, "profesor", "jose");
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
