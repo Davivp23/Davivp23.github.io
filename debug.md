@@ -9,6 +9,8 @@ back
 
 # Horario
 
+<button onclick="sendData()">Enviar</button>
+
 <table>
     <tr>
         <th>Hora</th>
