@@ -108,7 +108,7 @@ layout: default
                             if (schedule[i * 5 + j]) {
                                 const additionalCheckbox = document.createElement('input');
                                 additionalCheckbox.type = 'checkbox';
-                                additionalCheckbox.className = 'additional';
+                                additionalCheckbox.className = i * 5 + j;
                                 cell.appendChild(additionalCheckbox);
                                 rowAdded = true;
                             }
