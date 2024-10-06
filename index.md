@@ -101,7 +101,8 @@ layout: default
                             checkbox.type = 'checkbox';
                             checkbox.className = 'available';
                             checkbox.checked = schedule[i * 5 + j];
-                            checkbox.style.display = schedule[i * 5 + j] ? 'none' : 'inline'; // Ocultar el checkbox si está marcado
+                            checkbox.disabled = true; // Desactivar el checkbox
+                            checkbox.style.display = true ? 'none' : 'inline';
                             cell.appendChild(checkbox);
                             
                             if (schedule[i * 5 + j]) {
