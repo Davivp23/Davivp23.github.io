@@ -28,6 +28,10 @@ layout: default
             </ul>
         </div>
     </div>
+
+    <button id="save-button">Guardar</button>
+
+    
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
     <script type="module">
         // Configuración de Firebase
@@ -131,6 +135,26 @@ layout: default
             loadStudents();
             loadSchedule();
         });
+        
+        function saveCheckboxValues() {
+        const boolArray = new Array(240).fill(false);
+        const checkboxes = document.querySelectorAll('input[type="checkbox"].available');
+        
+        checkboxes.forEach(checkbox => {
+            const index = parseInt(checkbox.className, 10);
+            boolArray[index] = checkbox.checked;
+        });
+        
+        console.log(boolArray);
+        // Aquí puedes hacer algo con el arreglo boolArray, como enviarlo a tu base de datos
+    }
+    
+    $(document).ready(function() {
+        loadStudents();
+        loadSchedule();
+        
+        $('#save-button').on('click', saveCheckboxValues);
+    });
     </script>
     <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
     <table id="schedule-table" border="1" style="margin-top: 20px;">
