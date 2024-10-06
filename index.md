@@ -101,11 +101,18 @@ layout: default
                             checkbox.type = 'checkbox';
                             checkbox.className = 'available';
                             checkbox.checked = schedule[i * 5 + j];
+                            checkbox.disabled = true; // Desactivar el checkbox
                             cell.appendChild(checkbox);
-                            row.appendChild(cell);
+                            
                             if (schedule[i * 5 + j]) {
+                                const additionalCheckbox = document.createElement('input');
+                                additionalCheckbox.type = 'checkbox';
+                                additionalCheckbox.className = 'additional';
+                                cell.appendChild(additionalCheckbox);
                                 rowAdded = true;
                             }
+                            
+                            row.appendChild(cell);
                         }
                         if (rowAdded) {
                             scheduleTable.appendChild(row);
