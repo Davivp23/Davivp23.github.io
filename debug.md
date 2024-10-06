@@ -59,7 +59,7 @@ back
                 for (let half = 0; half < 2; half++) {
                     days.forEach(day => {
                         const id = `${day}${hour}${half}`;
-                        document.getElementById(id).checked = schedule[hour * 2 + half * 5 + index];
+                        document.getElementById(id).checked = schedule[hour * 2 + half * 5];
                     });
                 }
             }
