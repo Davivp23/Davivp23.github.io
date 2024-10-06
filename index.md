@@ -73,11 +73,11 @@ layout: default
     }
     
     async function loadSchedule() {
-        const docRef = doc(db, "jose", "profesor");
+        const docRef = doc(db, "profesor", "jose");
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
-            const schedule = docSnap.data().disponibilidad;
+            const schedule = docSnap.data().horario;
             if (Array.isArray(schedule) && schedule.length === 239) {
                 const scheduleTable = document.getElementById('schedule-table');
                 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
