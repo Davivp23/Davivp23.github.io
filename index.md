@@ -136,12 +136,7 @@ layout: default
                 boolArray[index] = checkbox.checked;
             });
             
-            console.log(boolArray);    
-
-            checkboxes.forEach(checkbox => {
-                const index = parseInt(checkbox.className, 10);
-                boolArray[index] = checkbox.checked;
-            });
+            console.log(boolArray);
             
             try {
                 await setDoc(doc(db, "alumnos", selectedValue), { disponibilidad: boolArray });
