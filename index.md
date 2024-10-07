@@ -137,12 +137,7 @@ layout: default
             });
             
             console.log(boolArray);    
-        }
-        
-        async function sendData() {
-            const boolArray = new Array(240).fill(false);
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
-            
+
             checkboxes.forEach(checkbox => {
                 const index = parseInt(checkbox.className, 10);
                 boolArray[index] = checkbox.checked;
