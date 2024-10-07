@@ -137,10 +137,8 @@ layout: default
             });
             
             console.log(boolArray);    
-        }
-        
-        async function sendData() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
+
+             const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
             
             checkboxes.forEach(checkbox => {
                 const index = parseInt(checkbox.className, 10);
@@ -155,6 +153,7 @@ layout: default
                 alert("Hubo un error al cambiar el horario");
             }
         }
+        
         
         $(document).ready(function() {
             loadStudents();
