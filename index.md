@@ -24,7 +24,7 @@ layout: default
         </div>
     </div>
 
-    <button id="save-button">Guardar</button>
+<button onclick="sendData()">Enviar</button>
 
     
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
@@ -183,5 +183,7 @@ layout: default
             <!-- Aquí se cargará el horario -->
         </tbody>
     </table>
+
+<button onclick="sendData()">Enviar</button>
 </body>
 </html>
