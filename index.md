@@ -137,7 +137,7 @@ layout: default
             });
         console.log("2")
             
-            console.log(boolArray);
+            console.log(boolArray, "caca");
             
             try {
                 await setDoc(doc(db, "alumnos", selectedValue), { disponibilidad: boolArray });
