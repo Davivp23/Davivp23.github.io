@@ -23,10 +23,9 @@ layout: default
             </ul>
         </div>
     </div>
-
-<button onclick="sendData()">Enviar</button>
-
     
+<button id="save-button">Guardar</button>
+
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
 <script type="module">
     // Configuración de Firebase
@@ -135,17 +134,12 @@ layout: default
             boolArray[index] = checkbox.checked;
         });
         
-        console.log(boolArray);    window.sendData = async function() {
-        const schedule = [];
-        const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
-
-        for (let hour = 0; hour < 24; hour++) {
-            for (let half = 0; half < 2; half++) {
-                days.forEach(day => {
-                    const id = `${day}${hour}${half}`;
-                    schedule.push(document.getElementById(id).checked);
-                });
-            }
+        console.log(boolArray);    
+        
+        window.sendData = async function() {
+                            
+            boolArray.push(document.getElementById(id).checked);
+            
         }
 
         // Aquí puedes enviar el arreglo a tu base de datos
