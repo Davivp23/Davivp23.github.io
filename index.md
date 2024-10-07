@@ -127,7 +127,7 @@ layout: default
             }
         }
         console.log("asdasd")
-        function saveCheckboxValues() {
+        async function saveCheckboxValues() {
             const boolArray = new Array(240).fill(false);
             const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
             
@@ -148,12 +148,9 @@ layout: default
             }
         }
         
-        
         $(document).ready(function() {
             loadStudents();
             loadSchedule();
-        
-        $('#save-button').on('click', saveCheckboxValues);
     });
 </script>
 
