@@ -126,7 +126,7 @@ layout: default
                 console.log("No such document!");
             }
         }
-        
+        console.log("asdasd")
         function saveCheckboxValues() {
             const boolArray = new Array(240).fill(false);
             const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
@@ -135,6 +135,7 @@ layout: default
                 const index = parseInt(checkbox.className, 10);
                 boolArray[index] = checkbox.checked;
             });
+        console.log("2")
             
             console.log(boolArray);
             
