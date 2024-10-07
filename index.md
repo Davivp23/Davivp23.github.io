@@ -151,7 +151,7 @@ layout: default
             alert("Hubo un error al cambiar el horario");
         }
     };
-    }
+    
     
     $(document).ready(function() {
         loadStudents();
