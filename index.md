@@ -136,9 +136,7 @@ layout: default
                 boolArray[index] = checkbox.checked;
             });
             
-            console.log(boolArray);    
-
-             const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
+            console.log(boolArray);
             
             checkboxes.forEach(checkbox => {
                 const index = parseInt(checkbox.className, 10);
