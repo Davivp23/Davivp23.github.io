@@ -24,7 +24,7 @@ layout: default
         </div>
     </div>
     
-    <button id="save-button">Guardar</button>
+<button onclick="saveCheckboxValues()">Enviar</button>
 
     <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js" type="text/javascript"></script>
     <script type="module">
@@ -171,6 +171,6 @@ layout: default
         </tbody>
     </table>
 
-<button onclick="sendData()">Enviar</button>
+<button onclick="saveCheckboxValues()">Enviar</button>
 </body>
 </html>
