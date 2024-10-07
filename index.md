@@ -149,7 +149,7 @@ layout: default
             });
             
             try {
-                await setDoc(doc(db, "alumnos", selectedValue), { horario: boolArray });
+                await setDoc(doc(db, "alumnos", "disponibilidad"), { horario: boolArray });
                 alert("Horario cambiado correctamente");
             } catch (error) {
                 console.error("Error cambiando el horario: ", error);
