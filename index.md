@@ -22,11 +22,6 @@ layout: default
                 <!-- Aquí se cargarán los nombres de los alumnos -->
             </ul>
         </div>
-        <div class="ms-selection">
-            <ul class="ms-list" tabindex="-1">
-                <!-- Aquí se mostrará el elemento seleccionado -->
-            </ul>
-        </div>
     </div>
 
     <button id="save-button">Guardar</button>
@@ -140,8 +135,28 @@ layout: default
             boolArray[index] = checkbox.checked;
         });
         
-        console.log(boolArray);
-        // Aquí puedes hacer algo con el arreglo boolArray, como enviarlo a tu base de datos
+        console.log(boolArray);    window.sendData = async function() {
+        const schedule = [];
+        const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+
+        for (let hour = 0; hour < 24; hour++) {
+            for (let half = 0; half < 2; half++) {
+                days.forEach(day => {
+                    const id = `${day}${hour}${half}`;
+                    schedule.push(document.getElementById(id).checked);
+                });
+            }
+        }
+
+        // Aquí puedes enviar el arreglo a tu base de datos
+        try {
+            await setDoc(doc(db, "alumnos", selectedValue), { horario: boolArray });
+            alert("Horario cambiado correctamente");
+        } catch (error) {
+            console.error("Error cambiando el horario: ", error);
+            alert("Hubo un error al cambiar el horario");
+        }
+    };
     }
     
     $(document).ready(function() {
