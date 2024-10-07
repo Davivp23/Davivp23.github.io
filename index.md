@@ -140,7 +140,6 @@ layout: default
         }
         
         async function sendData() {
-            const boolArray = new Array(240).fill(false);
             const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
             
             checkboxes.forEach(checkbox => {
