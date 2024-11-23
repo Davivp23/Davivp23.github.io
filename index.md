@@ -1,6 +1,5 @@
 ---
 layout: default
-title: PopCar
 ---
 
 # PopCar
@@ -11,7 +10,7 @@ title: PopCar
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PopCar</title>
-        <link href="/assets/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="lou-multi-select-57fb8d3/css/multi-select.css" rel="stylesheet" type="text/css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
         <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
@@ -25,11 +24,12 @@ title: PopCar
                 </ul>
             </div>
         </div>
-        
+
         <button onclick="saveCheckboxValues()">Enviar</button>
 
-        <script src="/assets/js/jquery.multi-select.js" type="text/javascript"></script>
+        <script src="lou-multi-select-57fb8d3/js/jquery.multi-select.js"></script>
         <script type="module">
+            // Configuración de Firebase
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
             import { getFirestore, collection, getDocs, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
@@ -44,6 +44,7 @@ title: PopCar
                 databaseURL: "https://popcarautohorario-default-rtdb.europe-west1.firebasedatabase.app/"
             };
 
+            // Inicializar Firebase
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
 
