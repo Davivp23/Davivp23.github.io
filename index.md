@@ -23,8 +23,6 @@ layout: default
         </div>
     </div>
 
-    <button onclick="saveCheckboxValues()">Enviar</button>
-
     <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
     <table id="schedule-table" border="1" style="margin-top: 20px;">
         <thead>
@@ -154,5 +152,7 @@ layout: default
             loadSchedule();
         });
     </script>
+
+    <button onclick="saveCheckboxValues()">Enviar</button>
 </body>
 </html>
