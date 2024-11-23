@@ -3,7 +3,7 @@ layout: default
 ---
 
 # PopCar
-¿Quién eres?
+¿Quién eres?s
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -13,32 +13,67 @@ layout: default
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Asegura que el cuerpo ocupe toda la altura de la ventana */
+            margin: 0;
+        }
+        main {
+            flex: 1; /* Esto permite que el contenido principal ocupe el espacio restante */
+        }
+        #send-button-container {
+            text-align: center; /* Centra el botón horizontalmente */
+            padding: 20px;
+            background-color: #f1f1f1; /* Fondo opcional para el pie de página */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="ms-container" id="ms-pre-selected-options">
-        <div class="ms-selectable">
-            <ul class="ms-list" tabindex="-1" id="students-list">
-                <!-- Aquí se cargarán los nombres de los alumnos -->
-            </ul>
+    <main>
+        <div class="ms-container" id="ms-pre-selected-options">
+            <div class="ms-selectable">
+                <ul class="ms-list" tabindex="-1" id="students-list">
+                    <!-- Aquí se cargarán los nombres de los alumnos -->
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
-    <table id="schedule-table" border="1" style="margin-top: 20px;">
-        <thead>
-            <tr>
-                <th>Horas</th>
-                <th>Lunes</th>
-                <th>Martes</th>
-                <th>Miércoles</th>
-                <th>Jueves</th>
-                <th>Viernes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Aquí se cargará el horario -->
-        </tbody>
-    </table>
+        <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
+        <table id="schedule-table" border="1" style="margin-top: 20px; width: 100%;">
+            <thead>
+                <tr>
+                    <th>Horas</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se cargará el horario -->
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Contenedor del botón al final -->
+    <div id="send-button-container">
+        <button onclick="saveCheckboxValues()">Enviar</button>
+    </div>
 
     <script type="module">
         // Configuración de Firebase
@@ -139,20 +174,17 @@ layout: default
             });
 
             try {
-                await setDoc(doc(db, "alumnos", selectedValue), { disponibilidad: boolArray });
-                alert("Horario cambiado correctamente");
+                await setDoc(doc(db, "alumnos", selectedValue), { disponibilidad: boolArray }, { merge: true });
+                alert("Disponibilidad enviada correctamente.");
             } catch (error) {
-                console.error("Error cambiando el horario: ", error);
-                alert("Hubo un error al cambiar el horario");
+                console.error("Error al guardar la disponibilidad: ", error);
             }
         };
 
-        $(document).ready(function () {
-            loadStudents();
-            loadSchedule();
-        });
+        // Llamar funciones iniciales
+        loadStudents();
+        loadSchedule();
     </script>
-
-    <button onclick="saveCheckboxValues()">Enviar</button>
 </body>
 </html>
+
