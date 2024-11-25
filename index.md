@@ -3,8 +3,7 @@ layout: default
 ---
 
 # PopCar
-¿Quién eres?
-
+¿Quién eres?s
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -18,25 +17,16 @@ layout: default
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            min-height: 100vh; /* Asegura que el cuerpo ocupe toda la altura de la ventana */
             margin: 0;
         }
         main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #schedule-container {
-            display: none; /* Ocultar inicialmente */
-            margin-top: 20px;
-            width: 100%;
+            flex: 1; /* Esto permite que el contenido principal ocupe el espacio restante */
         }
         #send-button-container {
-            display: none; /* Ocultar inicialmente */
-            text-align: center;
+            text-align: center; /* Centra el botón horizontalmente */
             padding: 20px;
-            background-color: #f1f1f1;
+            background-color: #f1f1f1; /* Fondo opcional para el pie de página */
         }
         button {
             padding: 10px 20px;
@@ -63,28 +53,24 @@ layout: default
         </div>
 
         <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
-
-        <!-- Contenedor del horario -->
-        <div id="schedule-container">
-            <table id="schedule-table" border="1" style="margin-top: 20px; width: 100%;">
-                <thead>
-                    <tr>
-                        <th>Horas</th>
-                        <th>Lunes</th>
-                        <th>Martes</th>
-                        <th>Miércoles</th>
-                        <th>Jueves</th>
-                        <th>Viernes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se cargará el horario -->
-                </tbody>
-            </table>
-        </div>
+        <table id="schedule-table" border="1" style="margin-top: 20px; width: 100%;">
+            <thead>
+                <tr>
+                    <th>Horas</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se cargará el horario -->
+            </tbody>
+        </table>
     </main>
 
-    <!-- Contenedor del botón de enviar -->
+    <!-- Contenedor del botón al final -->
     <div id="send-button-container">
         <button onclick="saveCheckboxValues()">Enviar</button>
     </div>
@@ -135,10 +121,6 @@ layout: default
 
                 // Mostrar el valor seleccionado en la página
                 $('#selected-output').text("Elemento seleccionado: " + selectedValue);
-
-                // Mostrar el horario y el botón de enviar
-                document.getElementById('schedule-container').style.display = 'block';
-                document.getElementById('send-button-container').style.display = 'block';
             });
         }
 
@@ -181,18 +163,18 @@ layout: default
             }
         }
 
+        // Exponer la función al ámbito global
         window.saveCheckboxValues = async function saveCheckboxValues() {
             const boolArray = new Array(240).fill(false);
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach((checkbox, index) => {
-                if (checkbox.checked) {
-                    boolArray[index] = true;
-                }
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.available)');
+
+            checkboxes.forEach(checkbox => {
+                const index = parseInt(checkbox.className, 10);
+                boolArray[index] = checkbox.checked;
             });
 
             try {
-                const studentDocRef = doc(db, "alumnos", selectedValue);
-                await setDoc(studentDocRef, { disponibilidad: boolArray }, { merge: true });
+                await setDoc(doc(db, "alumnos", selectedValue), { disponibilidad: boolArray }, { merge: true });
                 alert("Disponibilidad enviada correctamente.");
             } catch (error) {
                 console.error("Error al guardar la disponibilidad: ", error);
@@ -205,4 +187,3 @@ layout: default
     </script>
 </body>
 </html>
-
