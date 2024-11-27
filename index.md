@@ -61,150 +61,151 @@ layout: default
             </div>
         </div>
 
-        <div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
+<div id="selected-output" style="margin-top: 20px; font-weight: bold;"></div>
 
-        <!-- Contenedor del horario -->
-        <div id="schedule-container">
-            <table id="schedule-table" border="1" style="margin-top: 20px; width: 100%;">
-                <thead>
-                    <tr>
-                        <th>Horas</th>
-                        <th>Lunes</th>
-                        <th>Martes</th>
-                        <th>Miércoles</th>
-                        <th>Jueves</th>
-                        <th>Viernes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí se cargará el horario -->
-                </tbody>
-            </table>
-        </div>
-    </main>
+<!-- Contenedor del horario -->
+<div id="schedule-container">
+    <table id="schedule-table" border="1" style="margin-top: 20px; width: 100%;">
+        <thead>
+            <tr>
+                <th>Horas</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se cargará el horario -->
+        </tbody>
+    </table>
+</div>
+</main>
 
-    <!-- Contenedor del botón de enviar -->
-    <div id="send-button-container">
-        <button onclick="saveCheckboxValues()">Enviar</button>
-    </div>
+<!-- Contenedor del botón de enviar -->
+<div id="send-button-container">
+    <button onclick="saveCheckboxValues()">Enviar</button>
+</div>
 
-    <script type="module">
-        // Configuración de Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+<script type="module">
+    // Configuración de Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
-            authDomain: "popcarautohorario.firebaseapp.com",
-            projectId: "popcarautohorario",
-            storageBucket: "popcarautohorario.appspot.com",
-            messagingSenderId: "1046371810802",
-            appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
-            measurementId: "G-WK8NCRW5J6",
-            databaseURL: "https://popcarautohorario-default-rtdb.europe-west1.firebasedatabase.app/"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyCBJWfRiKmrVLKXLJ_cY9XQlg0D7U56ZqE",
+        authDomain: "popcarautohorario.firebaseapp.com",
+        projectId: "popcarautohorario",
+        storageBucket: "popcarautohorario.appspot.com",
+        messagingSenderId: "1046371810802",
+        appId: "1:1046371810802:web:8b9944cd5001359ac23f6b",
+        measurementId: "G-WK8NCRW5J6",
+        databaseURL: "https://popcarautohorario-default-rtdb.europe-west1.firebasedatabase.app/"
+    };
 
-        // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        let selectedValue = null;
+    let selectedValue = null;
 
-        async function loadStudents() {
-            const studentsList = document.getElementById('students-list');
-            const querySnapshot = await getDocs(collection(db, "alumnos"));
-            querySnapshot.forEach((doc) => {
-                const student = doc.data();
-                const li = document.createElement('li');
-                li.className = 'ms-elem-selectable';
-                li.id = doc.id;
-                li.innerHTML = `<span>${student.nombre}</span>`;
-                studentsList.appendChild(li);
-            });
+    async function loadStudents() {
+        const studentsList = document.getElementById('students-list');
+        const querySnapshot = await getDocs(collection(db, "alumnos"));
+        querySnapshot.forEach((doc) => {
+            const student = doc.data();
+            const li = document.createElement('li');
+            li.className = 'ms-elem-selectable';
+            li.id = doc.id;
+            li.innerHTML = `<span>${student.nombre}</span>`;
+            studentsList.appendChild(li);
+        });
 
-            // Añadir evento de clic a los elementos de la lista
-            $('.ms-elem-selectable').on('click', function () {
-                $('.ms-elem-selectable').removeClass('ms-selected');
-                $(this).addClass('ms-selected');
-                $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
+        // Añadir evento de clic a los elementos de la lista
+        $('.ms-elem-selectable').on('click', function () {
+            $('.ms-elem-selectable').removeClass('ms-selected');
+            $(this).addClass('ms-selected');
+            $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
 
-                // Obtener el valor del elemento seleccionado
-                selectedValue = $(this).attr('id');
-                console.log("Elemento seleccionado: " + selectedValue);
+            // Obtener el valor del elemento seleccionado
+            selectedValue = $(this).attr('id');
+            console.log("Elemento seleccionado: " + selectedValue);
 
-                // Mostrar el valor seleccionado en la página
-                $('#selected-output').text("Elemento seleccionado: " + selectedValue);
+            // Mostrar el valor seleccionado en la página
+            $('#selected-output').text("Elemento seleccionado: " + selectedValue);
 
-                // Cargar el horario según el estudiante seleccionado
-                loadSchedule(selectedValue);
-            });
-        }
+            // Cargar el horario según el estudiante seleccionado
+            loadSchedule(selectedValue);
+        });
+    }
 
-        async function loadSchedule(studentId) {
-            const scheduleTable = document.getElementById('schedule-table');
-            scheduleTable.querySelector('tbody').innerHTML = ""; // Limpiar tabla previa
-            const docRef = doc(db, "alumnos", studentId);
-            const docSnap = await getDoc(docRef);
+    async function loadSchedule(studentId) {
+        const scheduleTable = document.getElementById('schedule-table');
+        scheduleTable.querySelector('tbody').innerHTML = ""; // Limpiar tabla previa
+        const docRef = doc(db, "alumnos", studentId);
+        const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-                const boolArray = docSnap.data().disponibilidad || [];
-                const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-                const times = ["00:00-00:30", "00:30-01:00", "01:00-01:30", "01:30-02:00", "02:00-02:30", "02:30-03:00", "03:00-03:30", "03:30-04:00", "04:00-04:30", "04:30-05:00", "05:00-05:30", "05:30-06:00", "06:00-06:30", "06:30-07:00", "07:00-07:30", "07:30-08:00", "08:00-08:30", "08:30-09:00", "09:00-09:30", "09:30-10:00", "10:00-10:30", "10:30-11:00", "11:00-11:30", "11:30-12:00", "12:00-12:30", "12:30-13:00", "13:00-13:30", "13:30-14:00", "14:00-14:30", "14:30-15:00", "15:00-15:30", "15:30-16:00", "16:00-16:30", "16:30-17:00", "17:00-17:30", "17:30-18:00", "18:00-18:30", "18:30-19:00", "19:00-19:30", "19:30-20:00", "20:00-20:30", "20:30-21:00", "21:00-21:30", "21:30-22:00", "22:00-22:30", "22:30-23:00", "23:00-23:30", "23:30-00:00"];
-                
-                for (let i = 0; i < times.length; i++) {
-                    const row = document.createElement('tr');
-                    const timeCell = document.createElement('td');
-                    timeCell.innerHTML = times[i];
-                    row.appendChild(timeCell);
+        if (docSnap.exists()) {
+            const boolArray = docSnap.data().disponibilidad || [];
+            const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+            const times = ["00:00-00:30", "00:30-01:00", "01:00-01:30", "01:30-02:00", "02:00-02:30", "02:30-03:00", "03:00-03:30", "03:30-04:00", "04:00-04:30", "04:30-05:00", "05:00-05:30", "05:30-06:00", "06:00-06:30", "06:30-07:00", "07:00-07:30", "07:30-08:00", "08:00-08:30", "08:30-09:00", "09:00-09:30", "09:30-10:00", "10:00-10:30", "10:30-11:00", "11:00-11:30", "11:30-12:00", "12:00-12:30", "12:30-13:00", "13:00-13:30", "13:30-14:00", "14:00-14:30", "14:30-15:00", "15:00-15:30", "15:30-16:00", "16:00-16:30", "16:30-17:00", "17:00-17:30", "17:30-18:00", "18:00-18:30", "18:30-19:00", "19:00-19:30", "19:30-20:00", "20:00-20:30", "20:30-21:00", "21:00-21:30", "21:30-22:00", "22:00-22:30", "22:30-23:00", "23:00-23:30", "23:30-00:00"];
+            
+            for (let i = 0; i < times.length; i++) {
+                const row = document.createElement('tr');
+                const timeCell = document.createElement('td');
+                timeCell.innerHTML = times[i];
+                row.appendChild(timeCell);
 
-                    for (let j = 0; j < days.length; j++) {
-                        const cell = document.createElement('td');
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.className = `${i * days.length + j}`;
+                for (let j = 0; j < days.length; j++) {
+                    const cell = document.createElement('td');
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = `${i * days.length + j}`;
 
-                        // Habilitar solo si el boolArray lo permite
-                        if (boolArray[i * days.length + j]) {
-                            checkbox.disabled = false; // Activar
-                        } else {
-                            checkbox.disabled = true; // Desactivar
-                        }
-
-                        cell.appendChild(checkbox);
-                        row.appendChild(cell);
+                    // Habilitar solo si el boolArray lo permite
+                    if (boolArray[i * days.length + j]) {
+                        checkbox.disabled = false; // Activar
+                    } else {
+                        checkbox.disabled = true;
+                        checkbox.style.display = 'none';// Desactivar
                     }
-                    scheduleTable.querySelector('tbody').appendChild(row);
+
+                    cell.appendChild(checkbox);
+                    row.appendChild(cell);
                 }
-                
-                // Mostrar el horario y el botón de enviar
-                document.getElementById('schedule-container').style.display = 'block';
-                document.getElementById('send-button-container').style.display = 'block';
+                scheduleTable.querySelector('tbody').appendChild(row);
             }
+            
+            // Mostrar el horario y el botón de enviar
+            document.getElementById('schedule-container').style.display = 'block';
+            document.getElementById('send-button-container').style.display = 'block';
         }
+    }
 
-        async function saveCheckboxValues() {
-            if (!selectedValue) return;
+    async function saveCheckboxValues() {
+        if (!selectedValue) return;
 
-            const boolArray = new Array(240).fill(false); // Array de disponibilidad inicializado en falso
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach((checkbox, index) => {
-                if (checkbox.checked) {
-                    boolArray[index] = true;
-                }
-            });
-
-            try {
-                const studentDocRef = doc(db, "alumnos", selectedValue);
-                await setDoc(studentDocRef, { disponibilidad: boolArray }, { merge: true });
-                alert("Disponibilidad enviada correctamente.");
-            } catch (error) {
-                console.error("Error al guardar la disponibilidad: ", error);
+        const boolArray = new Array(240).fill(false); // Array de disponibilidad inicializado en falso
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox, index) => {
+            if (checkbox.checked) {
+                boolArray[index] = true;
             }
-        }
+        });
 
-        // Llamar funciones iniciales
-        loadStudents();
-    </script>
+        try {
+            const studentDocRef = doc(db, "alumnos", selectedValue);
+            await setDoc(studentDocRef, { disponibilidad: boolArray }, { merge: true });
+            alert("Disponibilidad enviada correctamente.");
+        } catch (error) {
+            console.error("Error al guardar la disponibilidad: ", error);
+        }
+    }
+
+    // Llamar funciones iniciales
+    loadStudents();
+</script>
 </body>
 </html>
 
