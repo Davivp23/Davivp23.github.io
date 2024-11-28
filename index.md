@@ -131,7 +131,7 @@ layout: default
 
             // Obtener el valor del elemento seleccionado
             selectedValue = $(this).attr('id');
-            studentTeacher = $(this).attr('teacher');
+            studentTeacher = this.teacher;
             console.log("Elemento seleccionado: " + selectedValue);
             console.log("Teacher del estudiante: " + studentTeacher);
 
