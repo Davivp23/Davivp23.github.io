@@ -100,7 +100,8 @@ back
         if (studentName) {
             const studentData = {
                 nombre: studentName,
-                disponibilidad: Array(240).fill(false) // Array de 48 bools inicializados a false
+                disponibilidad: Array(240).fill(false), // Array de 48 bools inicializados a false
+                profesor: profesores
             };
 
             try {
