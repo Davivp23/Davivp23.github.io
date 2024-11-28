@@ -121,7 +121,7 @@ layout: default
             li.innerHTML = `<span>${student.nombre}</span>`;
             studentsList.appendChild(li);
         });
-
+//---------------------------------------------------------------------
         // Añadir evento de clic a los elementos de la lista
         $('.ms-elem-selectable').on('click', function () {
             $('.ms-elem-selectable').removeClass('ms-selected');
@@ -140,10 +140,12 @@ layout: default
         });
     }
 
-    async function loadSchedule(studentId) {
+    async function loadSchedule(profesorId) {
+        
+        console.log("teacher: " + profesorId);
         const scheduleTable = document.getElementById('schedule-table');
         scheduleTable.querySelector('tbody').innerHTML = ""; // Limpiar tabla previa
-        const docRef = doc(db, "alumnos", studentId);
+        const docRef = doc(db, "profesor", profesorId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
