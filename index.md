@@ -118,6 +118,7 @@ layout: default
             const li = document.createElement('li');
             li.className = 'ms-elem-selectable';
             li.id = doc.id;
+            li.teacher = student.profesor;
             li.innerHTML = `<span>${student.nombre}</span>`;
             studentsList.appendChild(li);
         });
@@ -130,13 +131,15 @@ layout: default
 
             // Obtener el valor del elemento seleccionado
             selectedValue = $(this).attr('id');
+            studentTeacher = $(this).attr('teacher');
             console.log("Elemento seleccionado: " + selectedValue);
+            console.log("Teacher del estudiante: " + studentTeacher);
 
             // Mostrar el valor seleccionado en la página
             $('#selected-output').text("Elemento seleccionado: " + selectedValue);
 
             // Cargar el horario según el estudiante seleccionado
-            loadSchedule(selectedValue);
+            loadSchedule(studentTeacher);
         });
     }
 
