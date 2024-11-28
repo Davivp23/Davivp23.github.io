@@ -109,6 +109,7 @@ layout: default
     const db = getFirestore(app);
 
     let selectedValue = null;
+    let studentTeacher = null;
 
     async function loadStudents() {
         const studentsList = document.getElementById('students-list');
