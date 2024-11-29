@@ -3,28 +3,39 @@ layout: default
 title: Página del profesor
 ---
 
-back
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página del profesor</title>
+</head>
+<body>
+<div id="auth-container">
+    <h1>Acceso al Horario</h1>
+    <p>Por favor, introduce la contraseña para acceder.</p>
+    <input type="password" id="password" placeholder="Contraseña">
+    <button id="login-btn">Ingresar</button>
+    <p id="error-message" style="color: red; display: none;">Contraseña incorrecta</p>
+</div>
 
-<button id="add-student-btn">Añadir Alumno</button>
-
-# Horario
-
-<button onclick="sendData()">Enviar</button>
-
-<table>
-    <tr>
-        <th>Hora</th>
-        <th>Lunes</th>
-        <th>Martes</th>
-        <th>Miércoles</th>
-        <th>Jueves</th>
-        <th>Viernes</th>
-        <th>Todos</th>
-    </tr>
-    <tbody id="schedule"></tbody>
-</table>
-
-<button onclick="sendData()">Enviar</button>
+<div id="schedule-container" style="display: none;">
+    <button id="add-student-btn">Añadir Alumno</button>
+    <h1>Horario</h1>
+    <button onclick="sendData()">Enviar</button>
+    <table>
+        <tr>
+            <th>Hora</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Todos</th>
+        </tr>
+        <tbody id="schedule"></tbody>
+    </table>
+    <button onclick="sendData()">Enviar</button>
+</div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -45,10 +56,31 @@ back
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Definir la variable profesores
-    const profesores = "jose"; // Reemplaza esto con el valor adecuado
+    const profesores = "jose"; // Cambia esto según corresponda
 
-    // Función para cargar los datos y actualizar las casillas
+    // Contraseña predefinida (en un entorno real, debería manejarse en el servidor)
+    const PASSWORD = "12345"; // Cambia esto por una contraseña segura
+
+    // Elementos del DOM
+    const authContainer = document.getElementById("auth-container");
+    const scheduleContainer = document.getElementById("schedule-container");
+    const loginBtn = document.getElementById("login-btn");
+    const passwordInput = document.getElementById("password");
+    const errorMessage = document.getElementById("error-message");
+
+    // Validar contraseña
+    loginBtn.addEventListener("click", () => {
+        const enteredPassword = passwordInput.value;
+        if (enteredPassword === PASSWORD) {
+            authContainer.style.display = "none";
+            scheduleContainer.style.display = "block";
+            loadSchedule(); // Cargar el horario al iniciar sesión
+        } else {
+            errorMessage.style.display = "block";
+        }
+    });
+
+    // Función para cargar el horario
     async function loadSchedule() {
         const docRef = doc(db, "profesor", profesores);
         const docSnap = await getDoc(docRef);
@@ -71,7 +103,7 @@ back
         }
     }
 
-    // Definir la función sendData en el ámbito global
+    // Función para enviar los datos
     window.sendData = async function() {
         const schedule = [];
         const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
@@ -85,7 +117,6 @@ back
             }
         }
 
-        // Aquí puedes enviar el arreglo a tu base de datos
         try {
             await setDoc(doc(db, "profesor", profesores), { horario: schedule });
             alert("Horario cambiado correctamente");
@@ -94,67 +125,6 @@ back
             alert("Hubo un error al cambiar el horario");
         }
     };
-
-    document.getElementById('add-student-btn').addEventListener('click', async () => {
-        const studentName = prompt("Introduce el nombre del alumno:");
-        if (studentName) {
-            const studentData = {
-                nombre: studentName,
-                disponibilidad: Array(240).fill(false), // Array de 48 bools inicializados a false
-                profesor: profesores
-            };
-
-            try {
-                await setDoc(doc(db, "alumnos", studentName), studentData);
-                alert("Alumno añadido correctamente");
-            } catch (error) {
-                console.error("Error añadiendo el alumno: ", error);
-                alert("Hubo un error al añadir el alumno");
-            }
-        }
-    });
-
-    // Generar la tabla
-    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
-    const tbody = document.getElementById('schedule');
-
-    for (let hour = 0; hour < 24; hour++) {
-        for (let half = 0; half < 2; half++) {
-            const row = document.createElement('tr');
-            const timeCell = document.createElement('td');
-            const startHour = hour.toString().padStart(2, '0');
-            const startMinute = (half * 30).toString().padStart(2, '0');
-            const endHour = (half === 0) ? startHour : (hour + 1).toString().padStart(2, '0');
-            const endMinute = (half === 0) ? '30' : '00';
-            timeCell.textContent = `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
-            row.appendChild(timeCell);
-
-            days.forEach((day) => {
-                const cell = document.createElement('td');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = `${day}${hour}${half}`;
-                cell.appendChild(checkbox);
-                row.appendChild(cell);
-            });
-
-            // Añadir checkbox para seleccionar todos los días
-            const allCell = document.createElement('td');
-            const allCheckbox = document.createElement('input');
-            allCheckbox.type = 'checkbox';
-            allCheckbox.id = `all${hour}${half}`;
-            allCheckbox.addEventListener('change', function() {
-                days.forEach(day => {
-                    document.getElementById(`${day}${hour}${half}`).checked = this.checked;
-                });
-            });
-            allCell.appendChild(allCheckbox);
-            row.appendChild(allCell);
-
-            tbody.appendChild(row);
-        }
-    }
-
-    // Cargar el horario al cargar la página
-    window.addEventListener('load', loadSchedule);
 </script>
+</body>
+</html>
