@@ -7,6 +7,7 @@ title: Página del profesor
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página del profesor</title>
+    <style>
         body {
             display: flex;
             flex-direction: column;
@@ -25,6 +26,7 @@ title: Página del profesor
             padding: 20px;
             background-color: #fff;
         }
+    </style>
 </head>
 <body>
     <!-- Contenedor de autenticación -->
