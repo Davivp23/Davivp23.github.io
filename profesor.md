@@ -23,7 +23,7 @@ title: Página del profesor
         #auth-button-container {
             display: flex;
             text-align: center;
-            padding: 2px;
+            padding: 20px;
             background-color: #fff;
         }
         button {
@@ -49,7 +49,7 @@ title: Página del profesor
         <p id="error-message" style="color: red; display: none;">Contraseña incorrecta</p>
     </div>
     <!-- Contenedor de botón de autenticación -->
-    <div id="auth-container">
+    <div id="auth-button-container">
         <button id="login-btn">Ingresar</button>
     </div>
     <!-- Contenedor principal (oculto hasta autenticación) -->
