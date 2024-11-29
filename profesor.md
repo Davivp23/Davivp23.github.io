@@ -129,6 +129,7 @@ title: Página del profesor
     const authButtonContainer = document.getElementById("auth-button-container");
     const addButtonContainer = document.getElementById("add-button-container");
     const scheduleContainer = document.getElementById("schedule-container");
+    const sendButtonContainer = document.getElementById("send-button-container");
     const loginBtn = document.getElementById("login-btn");
     const passwordInput = document.getElementById("password");
     const errorMessage = document.getElementById("error-message");
