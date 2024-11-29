@@ -20,11 +20,23 @@ title: Página del profesor
             flex-direction: column;
             align-items: center;
         }
-        #auth-container {
+        #auth-button-container {
             display: flex;
             text-align: center;
-            padding: 20px;
+            padding: 2px;
             background-color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #567482;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #819198;
         }
     </style>
 </head>
@@ -34,29 +46,31 @@ title: Página del profesor
         <h1>Acceso al Horario</h1>
         <p>Por favor, introduce la contraseña para acceder.</p>
         <input type="password" id="password" placeholder="Contraseña">
-        <button id="login-btn">Ingresar</button>
         <p id="error-message" style="color: red; display: none;">Contraseña incorrecta</p>
     </div>
-
-<!-- Contenedor principal (oculto hasta autenticación) -->
-<div id="schedule-container" style="display: none;">
-    <button id="add-student-btn">Añadir Alumno</button>
-    <h1>Horario</h1>
-    <button onclick="sendData()">Enviar</button>
-    <table>
-        <tr>
-            <th>Hora</th>
-            <th>Lunes</th>
-            <th>Martes</th>
-            <th>Miércoles</th>
-            <th>Jueves</th>
-            <th>Viernes</th>
-            <th>Todos</th>
-        </tr>
-        <tbody id="schedule"></tbody>
-    </table>
-    <button onclick="sendData()">Enviar</button>
-</div>
+    <!-- Contenedor de botón de autenticación -->
+    <div id="auth-container">
+        <button id="login-btn">Ingresar</button>
+    </div>
+    <!-- Contenedor principal (oculto hasta autenticación) -->
+    <div id="schedule-container" style="display: none;">
+        <button id="add-student-btn">Añadir Alumno</button>
+        <h1>Horario</h1>
+        <button onclick="sendData()">Enviar</button>
+        <table>
+            <tr>
+                <th>Hora</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Todos</th>
+            </tr>
+            <tbody id="schedule"></tbody>
+        </table>
+        <button onclick="sendData()">Enviar</button>
+    </div>
 
 <script type="module">
     // Importaciones de Firebase
