@@ -20,6 +20,12 @@ title: Página del profesor
             flex-direction: column;
             align-items: center;
         }
+        #auth-container {
+            display: block;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+        }
         #auth-button-container {
             display: flex;
             text-align: center;
@@ -42,7 +48,7 @@ title: Página del profesor
 </head>
 <body>
     <!-- Contenedor de autenticación -->
-    <div id="auth-button-container">
+    <div id="auth-container">
         <h1>Acceso al Horario</h1>
         <p>Por favor, introduce la contraseña para acceder.</p>
         <input type="password" id="password" placeholder="Contraseña">
