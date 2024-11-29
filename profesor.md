@@ -105,6 +105,7 @@ title: Página del profesor
 
     // Referencias del DOM
     const authContainer = document.getElementById("auth-container");
+    const authButtonContainer = document.getElementById("auth-button-container");
     const scheduleContainer = document.getElementById("schedule-container");
     const loginBtn = document.getElementById("login-btn");
     const passwordInput = document.getElementById("password");
@@ -114,6 +115,7 @@ title: Página del profesor
     loginBtn.addEventListener("click", () => {
         const enteredPassword = passwordInput.value;
         if (enteredPassword === PASSWORD) {
+            authButtonContainer.style.display = "none";
             authContainer.style.display = "none"; // Ocultar autenticación
             scheduleContainer.style.display = "block"; // Mostrar horario
             loadSchedule(); // Cargar datos del horario
