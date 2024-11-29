@@ -7,6 +7,24 @@ title: Página del profesor
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página del profesor</title>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #auth-container {
+            display: flex;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+        }
 </head>
 <body>
     <!-- Contenedor de autenticación -->
