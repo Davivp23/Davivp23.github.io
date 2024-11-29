@@ -1,6 +1,6 @@
 ---
 layout: default
-title: debug
+title: Página del profesor
 ---
 
 back
