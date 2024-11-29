@@ -214,7 +214,7 @@ layout: default
         checkboxes.forEach((checkbox, index) => {
             console.log(checkbox, index, checkbox.className);
             if (checkbox.checked) {
-                boolArray[index] = true;
+                boolArray[checkbox.className] = true;
             }
         });
     
