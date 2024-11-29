@@ -59,7 +59,7 @@ title: Página del profesor
         <button id="login-btn">Ingresar</button>
     </div>
     <!-- Contenedor principal (oculto hasta autenticación) -->
-    <div id="schedule-container" style="display: none;">
+    <div id="schedule-container" style="display: block;">
         <button id="add-student-btn">Añadir Alumno</button>
         <h1>Horario</h1>
         <button onclick="sendData()">Enviar</button>
