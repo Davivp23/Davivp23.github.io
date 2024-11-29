@@ -68,7 +68,7 @@ title: Página del profesor
         }
         button {
             padding: 10vh 20vw;
-            font-size: 16px;
+            font-size: 1rem;
             cursor: pointer;
             background-color: #567482;
             color: white;
