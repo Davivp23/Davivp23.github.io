@@ -205,11 +205,11 @@ layout: default
             document.getElementById('send-button-container').style.display = 'block';
         }
     }
-    async function saveCheckboxValues() {
-        console.log("fn")
+    window.saveCheckboxValues = function() {
+        console.log("cacacaca");
     }
-
-    async function saveCheckboxValuess() {
+    
+    window.saveCheckboxValuess = function() {
         if (!selectedValue) return;
 
         const boolArray = new Array(240).fill(false); // Array de disponibilidad inicializado en falso
