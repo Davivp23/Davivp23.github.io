@@ -42,7 +42,7 @@ title: Página del profesor
 </head>
 <body>
     <!-- Contenedor de autenticación -->
-    <div id="auth-container">
+    <div id="auth-button-container">
         <h1>Acceso al Horario</h1>
         <p>Por favor, introduce la contraseña para acceder.</p>
         <input type="password" id="password" placeholder="Contraseña">
