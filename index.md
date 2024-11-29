@@ -43,13 +43,13 @@ description:
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            background-color: #007bff;
+            background-color: #819198;
             color: white;
             border: none;
             border-radius: 5px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #567482;
         }
     </style>
 </head>
