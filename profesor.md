@@ -8,6 +8,16 @@ title: Página del profesor
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página del profesor</title>
     <style>
+         /* Tamaño de fuente base para escritorio */
+        html {
+            font-size: 16px;
+        }
+        /* Ajustar el tamaño de fuente para pantallas pequeñas (móviles) */
+        @media (max-width: 600px) {
+            html {
+                font-size: 8px;
+            }
+        }
         body {
             display: flex;
             flex-direction: column;
@@ -23,35 +33,41 @@ title: Página del profesor
         #auth-container {
             display: block;
             text-align: center;
-            padding: 20px;
+            padding: 20vh;
             background-color: #fff;
         }
         #auth-button-container {
             display: flex;
             text-align: center;
-            padding: 20px;
+            padding: 20vh;
             background-color: #fff;
         }
         #add-button-container {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 20vh;
             background-color: #fff;
-        }
+        }       
+        #alumnos-container {
+            display: none;
+            text-align: center;
+            padding: 20vh;
+            background-color: #fff;
+        }      
         #schedule-container {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 20vh;
             background-color: #fff;
         }        
         #send-button-container {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 20vh;
             background-color: #fff;
         }
         button {
-            padding: 10px 20px;
+            padding: 10vh 20vw;
             font-size: 16px;
             cursor: pointer;
             background-color: #567482;
