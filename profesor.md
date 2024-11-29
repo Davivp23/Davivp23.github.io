@@ -142,6 +142,7 @@ title: Página del profesor
             authContainer.style.display = "none"; // Ocultar autenticación
             addButtonContainer.style.display = "block";
             scheduleContainer.style.display = "block"; // Mostrar horario
+            sendButtonContainer.style.display = "block";
             loadSchedule(); // Cargar datos del horario
         } else {
             errorMessage.style.display = "block"; // Mostrar error si la contraseña es incorrecta
