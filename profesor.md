@@ -48,6 +48,130 @@ input[type="password"] {
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 2px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Botones */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 2px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#error-message {
+    margin-top: 10px;
+    color: red;
+}
+
+/* Flexbox para centrar */
+#schedule-container {
+    display: none; /* Oculto inicialmente */
+}
+</style>
+</head>
+<body>
+<!-- Contenedor de autenticación -->
+<div id="auth-container">
+    <h1>Acceso al Horario</h1>
+    <p>Por favor, introduce la contraseña para acceder.</p>
+    <input type="password" id="password" placeholder="Contraseña">
+    <button id="login-btn">Ingresar</button>
+    <p id="error-message" style="display: none;">Contraseña incorrecta</p>
+</div>
+
+<!-- Contenedor principal (oculto hasta autenticación) -->
+<div id="schedule-container">
+    <button id="add-student-btn">Añadir Alumno</button>
+    <h1>Horario</h1>
+    <button onclick="sendData()">Enviar</button>
+    <table>
+        <tr>
+            <th>Hora</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Todos</th>
+        </tr>
+        <tbody id="schedule"></tbody>
+    </table>
+    <button onclick="sendData()">Enviar</button>
+</div>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página del profesor</title>
+<style>
+        /* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#auth-container, #schedule-container {
+    text-align: center;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+input[type="password"] {
+    padding: 10px;
+    width: 80%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
 }
 
@@ -96,14 +220,14 @@ button:disabled {
 </style>
 </head>
 <body>
-<!-- Contenedor de autenticación -->
-<div id="auth-container">
-    <h1>Acceso al Horario</h1>
-    <p>Por favor, introduce la contraseña para acceder.</p>
-    <input type="password" id="password" placeholder="Contraseña">
-    <button id="login-btn">Ingresar</button>
-    <p id="error-message" style="display: none;">Contraseña incorrecta</p>
-</div>
+    <!-- Contenedor de autenticación -->
+    <div id="auth-container">
+        <h1>Acceso al Horario</h1>
+        <p>Por favor, introduce la contraseña para acceder.</p>
+        <input type="password" id="password" placeholder="Contraseña">
+        <button id="login-btn">Ingresar</button>
+        <p id="error-message" style="display: none;">Contraseña incorrecta</p>
+    </div>
 
 <!-- Contenedor principal (oculto hasta autenticación) -->
 <div id="schedule-container">
@@ -276,4 +400,3 @@ button:disabled {
     }
 </script>
 </body>
-</html>
