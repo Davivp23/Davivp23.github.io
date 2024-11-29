@@ -205,8 +205,11 @@ layout: default
             document.getElementById('send-button-container').style.display = 'block';
         }
     }
-
     async function saveCheckboxValues() {
+        console.log("fn")
+    }
+
+    async function saveCheckboxValuess() {
         if (!selectedValue) return;
 
         const boolArray = new Array(240).fill(false); // Array de disponibilidad inicializado en falso
