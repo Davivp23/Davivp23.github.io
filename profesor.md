@@ -43,6 +43,12 @@ title: Página del profesor
             text-align: center;
             padding: 20px;
             background-color: #fff;
+        }        
+        #send-button-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
         }
         button {
             padding: 10px 20px;
@@ -76,7 +82,6 @@ title: Página del profesor
     </div>
     <div id="schedule-container">
         <h1>Horario</h1>
-        <button onclick="sendData()">Enviar</button>
         <table>
             <tr>
                 <th>Hora</th>
@@ -90,8 +95,8 @@ title: Página del profesor
             <tbody id="schedule"></tbody>
         </table>
     </div>
-    <div id="add-button-container">
-        <button id="add-student-btn">Añadir Alumno</button>
+    <div id="send-button-container">
+        <button onclick="sendData()">Enviar</button>
     </div>
 
 <script type="module">
