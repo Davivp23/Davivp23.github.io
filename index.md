@@ -37,7 +37,7 @@ description:
             display: none; /* Ocultar inicialmente */
             text-align: center;
             padding: 20px;
-            background-color: #f1f1f1;
+            background-color: #fff;
         }
         button {
             padding: 10px 20px;
