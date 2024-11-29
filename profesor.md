@@ -21,7 +21,7 @@ title: Página del profesor
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            min-height: 10vh;
             margin: 0;
         }
         main {
@@ -33,41 +33,41 @@ title: Página del profesor
         #auth-container {
             display: block;
             text-align: center;
-            padding: 20vh;
+            padding: 2vh;
             background-color: #fff;
         }
         #auth-button-container {
             display: flex;
             text-align: center;
-            padding: 20vh;
+            padding: 2vh;
             background-color: #fff;
         }
         #add-button-container {
             display: none;
             text-align: center;
-            padding: 20vh;
+            padding: 2vh;
             background-color: #fff;
         }       
         #alumnos-container {
             display: none;
             text-align: center;
-            padding: 20vh;
+            padding: 2vh;
             background-color: #fff;
         }      
         #schedule-container {
             display: none;
             text-align: center;
-            padding: 20vh;
+            padding: 2vh;
             background-color: #fff;
         }        
         #send-button-container {
             display: none;
             text-align: center;
-            padding: 20vh;
+            padding: 2vh;
             background-color: #fff;
         }
         button {
-            padding: 10vh 20vw;
+            padding: 1vh 2vw;
             font-size: 1rem;
             cursor: pointer;
             background-color: #567482;
