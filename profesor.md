@@ -32,6 +32,18 @@ title: Página del profesor
             padding: 20px;
             background-color: #fff;
         }
+        #add-button-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+        }
+        #schedule-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+        }
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -58,9 +70,11 @@ title: Página del profesor
     <div id="auth-button-container">
         <button id="login-btn">Ingresar</button>
     </div>
-    <!-- Contenedor principal (oculto hasta autenticación) -->
-    <div id="schedule-container" style="display: block;">
+    <!-- Contenedor principal (oculto hasta autenticación) -->    
+    <div id="add-button-container">
         <button id="add-student-btn">Añadir Alumno</button>
+    </div>
+    <div id="schedule-container">
         <h1>Horario</h1>
         <button onclick="sendData()">Enviar</button>
         <table>
@@ -75,7 +89,9 @@ title: Página del profesor
             </tr>
             <tbody id="schedule"></tbody>
         </table>
-        <button onclick="sendData()">Enviar</button>
+    </div>
+    <div id="add-button-container">
+        <button id="add-student-btn">Añadir Alumno</button>
     </div>
 
 <script type="module">
@@ -106,6 +122,7 @@ title: Página del profesor
     // Referencias del DOM
     const authContainer = document.getElementById("auth-container");
     const authButtonContainer = document.getElementById("auth-button-container");
+    const addButtonContainer = document.getElementById("add-button-container");
     const scheduleContainer = document.getElementById("schedule-container");
     const loginBtn = document.getElementById("login-btn");
     const passwordInput = document.getElementById("password");
@@ -117,6 +134,7 @@ title: Página del profesor
         if (enteredPassword === PASSWORD) {
             authButtonContainer.style.display = "none";
             authContainer.style.display = "none"; // Ocultar autenticación
+            addButtonContainer.style.display = "block";
             scheduleContainer.style.display = "block"; // Mostrar horario
             loadSchedule(); // Cargar datos del horario
         } else {
