@@ -212,7 +212,7 @@ layout: default
         const boolArray = new Array(240).fill(false); // Array de disponibilidad inicializado en falso
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach((checkbox, index) => {
-            console.log(checkbox, index, checkbox.class);
+            console.log(checkbox, index, checkbox.className);
             if (checkbox.checked) {
                 boolArray[index] = true;
             }
