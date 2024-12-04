@@ -96,6 +96,13 @@ title: Página del profesor
     <div id="add-button-container">
         <button id="add-student-btn">Añadir Alumno</button>
     </div>
+    <div class="ms-container" id="ms-pre-selected-options">
+        <div class="ms-selectable">
+            <ul class="ms-list" tabindex="-1" id="students-list">
+                <!-- Aquí se cargarán los nombres de los alumnos -->
+            </ul>
+        </div>
+    </div>
     <div id="schedule-container">
         <h1>Horario</h1>
         <table>
@@ -135,6 +142,42 @@ title: Página del profesor
     // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+
+    let selectedValue = null;
+    let studentTeacher = null;
+
+    async function loadStudents() {
+        const studentsList = document.getElementById('students-list');
+        const querySnapshot = await getDocs(collection(db, "alumnos"));
+        querySnapshot.forEach((doc) => {
+            const student = doc.data();
+            const li = document.createElement('li');
+            li.className = 'ms-elem-selectable';
+            li.id = doc.id;
+            li.teacher = student.profesor;
+            li.innerHTML = `<span>${student.nombre}</span>`;
+            studentsList.appendChild(li);
+        });
+//---------------------------------------------------------------------
+        // Añadir evento de clic a los elementos de la lista
+        $('.ms-elem-selectable').on('click', function () {
+            $('.ms-elem-selectable').removeClass('ms-selected');
+            $(this).addClass('ms-selected');
+            $('.ms-selection .ms-list').html('<li class="ms-elem-selection ms-selected">' + $(this).html() + '</li>');
+
+            // Obtener el valor del elemento seleccionado
+            selectedValue = $(this).attr('id');
+            studentTeacher = this.teacher;
+            console.log("Elemento seleccionado: " + selectedValue);
+            console.log("Teacher del estudiante: " + studentTeacher);
+
+            // Mostrar el valor seleccionado en la página
+            $('#selected-output').text("Elemento seleccionado: " + selectedValue);
+
+            // Cargar el horario según el estudiante seleccionado
+            loadSchedule(studentTeacher);
+        });
+    }
 
     // Constantes y variables
     const profesores = "jose"; // Cambia esto según sea necesario
