@@ -173,11 +173,10 @@ title: Página del profesor
 
             // Mostrar el valor seleccionado en la página
             $('#selected-output').text("Elemento seleccionado: " + selectedValue);
-
-            // Cargar el horario según el estudiante seleccionado
-            loadSchedule(studentTeacher);
         });
     }
+
+    loadStudents()
 
     // Constantes y variables
     const profesores = "jose"; // Cambia esto según sea necesario
