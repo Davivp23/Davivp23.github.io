@@ -98,7 +98,7 @@ title: Página del profesor
     <div id="add-button-container">
         <button id="add-student-btn">Añadir Alumno</button>
     </div>
-    <div class="ms-container" id="ms-pre-selected-options">
+    <div class="ms-container" id="ms-pre-selected-options" style="display: none;">
         <div class="ms-selectable">
             <ul class="ms-list" tabindex="-1" id="students-list">
                 <!-- Aquí se cargarán los nombres de los alumnos -->
@@ -188,6 +188,7 @@ title: Página del profesor
     const authContainer = document.getElementById("auth-container");
     const authButtonContainer = document.getElementById("auth-button-container");
     const addButtonContainer = document.getElementById("add-button-container");
+    const msContainer = document.getElementById("ms-pre-selected-options");
     const scheduleContainer = document.getElementById("schedule-container");
     const sendButtonContainer = document.getElementById("send-button-container");
     const loginBtn = document.getElementById("login-btn");
@@ -201,6 +202,7 @@ title: Página del profesor
             authButtonContainer.style.display = "none";
             authContainer.style.display = "none"; // Ocultar autenticación
             addButtonContainer.style.display = "block";
+            msContainer.style.display = "block";
             scheduleContainer.style.display = "block"; // Mostrar horario
             sendButtonContainer.style.display = "block";
             loadSchedule(); // Cargar datos del horario
